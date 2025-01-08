@@ -18,6 +18,7 @@ export class CustomerListComponent implements OnInit {
   searchTerm: string = '';
   sortColumn: string = 'name';
   sortDirection: 'asc' | 'desc' = 'asc';
+  isDarkMode = false;
 
   constructor(
     private customerService: CustomerService,
@@ -134,5 +135,14 @@ export class CustomerListComponent implements OnInit {
 
   printList() {
     window.print();
+  }
+
+  toggleDarkMode() {
+    this.isDarkMode = !this.isDarkMode;
+    if (this.isDarkMode) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode');
+    }
   }
 } 

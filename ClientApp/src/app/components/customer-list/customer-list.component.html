@@ -1,24 +1,29 @@
-<div class="container mt-4">
+<div class="container-fluid mt-4" [ngClass]="{'dark-mode': isDarkMode}">
   <div class="card">
     <div class="card-header">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="mb-0">Customer Management</h2>
-        <div class="d-flex gap-2">
-          <button class="btn btn-primary" (click)="showForm = !showForm">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-3">
+        <h2 class="mb-0 fs-4">Customer Management</h2>
+        <div class="d-flex flex-wrap gap-2">
+          <button class="btn btn-outline-secondary btn-sm-block" (click)="toggleDarkMode()">
+            <i class="bi" [ngClass]="isDarkMode ? 'bi-sun' : 'bi-moon'"></i>
+            {{ isDarkMode ? 'Light Mode' : 'Dark Mode' }}
+          </button>
+          <button class="btn btn-primary btn-sm-block" (click)="showForm = !showForm">
+            <i class="bi bi-plus-circle me-1"></i>
             {{ showForm ? 'Hide Form' : 'Add Customer' }}
           </button>
-          <button class="btn btn-success" (click)="exportToExcel()">
-            <i class="bi bi-file-excel"></i> Export
+          <button class="btn btn-success btn-sm-block" (click)="exportToExcel()">
+            <i class="bi bi-file-excel me-1"></i> Export
           </button>
-          <button class="btn btn-info" (click)="printList()">
-            <i class="bi bi-printer"></i> Print
+          <button class="btn btn-info btn-sm-block" (click)="printList()">
+            <i class="bi bi-printer me-1"></i> Print
           </button>
         </div>
       </div>
 
       <!-- Search and Filter Section -->
       <div class="row g-3">
-        <div class="col-md-4">
+        <div class="col-12 col-md-4">
           <div class="input-group">
             <span class="input-group-text">
               <i class="bi bi-search"></i>
@@ -32,9 +37,9 @@
             >
           </div>
         </div>
-        <div class="col-md-8">
-          <div class="d-flex gap-2">
-            <select class="form-select w-auto" [(ngModel)]="sortColumn" (change)="onSort()">
+        <div class="col-12 col-md-8">
+          <div class="d-flex flex-wrap gap-2">
+            <select class="form-select flex-grow-1" [(ngModel)]="sortColumn" (change)="onSort()">
               <option value="name">Sort by Name</option>
               <option value="email">Sort by Email</option>
               <option value="phoneNumber">Sort by Phone</option>
@@ -57,69 +62,85 @@
       <!-- Customer Form -->
       <div *ngIf="showForm" class="mb-4">
         <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="row g-3">
-          <div class="col-md-4">
+          <div class="col-12 col-md-4">
             <label for="name" class="form-label">Name</label>
             <input type="text" class="form-control" id="name" formControlName="name">
-            <div *ngIf="customerForm.get('name')?.invalid && customerForm.get('name')?.touched" class="text-danger">
+            <div *ngIf="customerForm.get('name')?.invalid && customerForm.get('name')?.touched" class="text-danger small">
               Name is required (min 2 characters)
             </div>
           </div>
           
-          <div class="col-md-4">
+          <div class="col-12 col-md-4">
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" formControlName="email">
-            <div *ngIf="customerForm.get('email')?.invalid && customerForm.get('email')?.touched" class="text-danger">
+            <div *ngIf="customerForm.get('email')?.invalid && customerForm.get('email')?.touched" class="text-danger small">
               Valid email is required
             </div>
           </div>
           
-          <div class="col-md-4">
+          <div class="col-12 col-md-4">
             <label for="phoneNumber" class="form-label">Phone Number</label>
             <input type="tel" class="form-control" id="phoneNumber" formControlName="phoneNumber">
-            <div *ngIf="customerForm.get('phoneNumber')?.invalid && customerForm.get('phoneNumber')?.touched" class="text-danger">
+            <div *ngIf="customerForm.get('phoneNumber')?.invalid && customerForm.get('phoneNumber')?.touched" class="text-danger small">
               Valid phone number is required
             </div>
           </div>
           
           <div class="col-12">
-            <button type="submit" class="btn btn-success me-2" [disabled]="!customerForm.valid">
-              {{ editingCustomer ? 'Update' : 'Add' }} Customer
-            </button>
-            <button type="button" class="btn btn-secondary" (click)="resetForm()">Cancel</button>
+            <div class="d-flex flex-wrap gap-2">
+              <button type="submit" class="btn btn-success" [disabled]="!customerForm.valid">
+                <i class="bi" [ngClass]="editingCustomer ? 'bi-check-circle' : 'bi-plus-circle'"></i>
+                {{ editingCustomer ? 'Update' : 'Add' }} Customer
+              </button>
+              <button type="button" class="btn btn-secondary" (click)="resetForm()">
+                <i class="bi bi-x-circle"></i> Cancel
+              </button>
+            </div>
           </div>
         </form>
       </div>
 
       <!-- Customer List -->
       <div class="table-responsive">
-        <table class="table table-striped table-hover">
+        <table class="table table-hover custom-table" [ngClass]="{'table-dark': isDarkMode}">
           <thead>
             <tr>
               <th>Name</th>
               <th>Email</th>
-              <th>Phone Number</th>
+              <th class="d-none d-md-table-cell">Phone Number</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngIf="loading">
-              <td colspan="4" class="text-center">Loading...</td>
+              <td colspan="4" class="text-center">
+                <div class="spinner-border text-primary" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </td>
             </tr>
             <tr *ngFor="let customer of customers">
               <td>{{ customer.name }}</td>
-              <td>{{ customer.email }}</td>
-              <td>{{ customer.phoneNumber }}</td>
+              <td class="text-break">{{ customer.email }}</td>
+              <td class="d-none d-md-table-cell">{{ customer.phoneNumber }}</td>
               <td>
-                <button class="btn btn-sm btn-primary me-2" (click)="editCustomer(customer)">
-                  Edit
-                </button>
-                <button class="btn btn-sm btn-danger" (click)="deleteCustomer(customer.id)">
-                  Delete
-                </button>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-sm btn-primary" (click)="editCustomer(customer)" title="Edit">
+                    <i class="bi bi-pencil"></i>
+                    <span class="d-none d-md-inline ms-1">Edit</span>
+                  </button>
+                  <button class="btn btn-sm btn-danger" (click)="deleteCustomer(customer.id)" title="Delete">
+                    <i class="bi bi-trash"></i>
+                    <span class="d-none d-md-inline ms-1">Delete</span>
+                  </button>
+                </div>
               </td>
             </tr>
             <tr *ngIf="!loading && customers.length === 0">
-              <td colspan="4" class="text-center">No customers found</td>
+              <td colspan="4" class="text-center py-4">
+                <i class="bi bi-inbox fs-1 text-muted"></i>
+                <p class="mb-0 mt-2">No customers found</p>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -127,22 +148,47 @@
     </div>
   </div>
 
-  <!-- Statistics Card -->
-  <div class="card mt-4">
-    <div class="card-header">
-      <h3 class="mb-0">Customer Statistics</h3>
-    </div>
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="card bg-primary text-white">
-            <div class="card-body">
-              <h5 class="card-title">Total Customers</h5>
-              <h2>{{ customers.length }}</h2>
+  <!-- Statistics Cards -->
+  <div class="row mt-4 g-3">
+    <div class="col-12 col-md-4">
+      <div class="card bg-primary text-white statistics-card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <i class="bi bi-people fs-1 me-3"></i>
+            <div>
+              <h6 class="card-title mb-0">Total Customers</h6>
+              <h2 class="mb-0">{{ customers.length }}</h2>
             </div>
           </div>
         </div>
-        <!-- Add more statistics cards here -->
+      </div>
+    </div>
+    
+    <div class="col-12 col-md-4">
+      <div class="card bg-success text-white statistics-card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <i class="bi bi-graph-up fs-1 me-3"></i>
+            <div>
+              <h6 class="card-title mb-0">Active This Month</h6>
+              <h2 class="mb-0">{{ customers.length }}</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-12 col-md-4">
+      <div class="card bg-info text-white statistics-card h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <i class="bi bi-calendar-check fs-1 me-3"></i>
+            <div>
+              <h6 class="card-title mb-0">New This Week</h6>
+              <h2 class="mb-0">0</h2>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

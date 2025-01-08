@@ -1,18 +1,40 @@
 .card {
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  border: none;
+  margin-bottom: 1rem;
 }
 
 .card-header {
   background-color: #f8f9fa;
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  padding: 1rem;
 }
 
 .table {
   margin-bottom: 0;
 }
 
+.table td {
+  vertical-align: middle;
+}
+
 .btn-sm {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+  .btn-sm-block {
+    width: 100%;
+  }
+  
+  .table td {
+    font-size: 0.875rem;
+  }
+  
+  .card-header h2 {
+    font-size: 1.5rem;
+  }
 }
 
 .form-control:focus {
@@ -41,16 +63,207 @@
   .table {
     width: 100% !important;
   }
+  
+  .statistics-card {
+    break-inside: avoid;
+  }
 }
 
 .statistics-card {
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: none;
 }
 
 .statistics-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.statistics-card .bi {
+  opacity: 0.8;
 }
 
 .search-highlight {
   background-color: yellow;
+}
+
+.spinner-border {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.text-break {
+  word-break: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+@media (max-width: 576px) {
+  .container-fluid {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  .card-body {
+    padding: 0.75rem;
+  }
+  
+  .table {
+    font-size: 0.875rem;
+  }
+  
+  .statistics-card {
+    margin-bottom: 1rem;
+  }
+  
+  .btn {
+    padding: 0.375rem 0.75rem;
+  }
+  
+  .form-control {
+    font-size: 0.875rem;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 991px) {
+  .statistics-card {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .card {
+    background-color: #2b3035;
+    color: #fff;
+  }
+  
+  .card-header {
+    background-color: #343a40;
+  }
+  
+  .table {
+    color: #fff;
+  }
+  
+  .form-control {
+    background-color: #343a40;
+    color: #fff;
+    border-color: #495057;
+  }
+  
+  .form-control:focus {
+    background-color: #343a40;
+    color: #fff;
+  }
+}
+
+/* Table Styles */
+.custom-table {
+  --bs-table-bg: transparent;
+  --bs-table-striped-bg: rgba(0, 0, 0, 0.02);
+  --bs-table-hover-bg: rgba(0, 0, 0, 0.04);
+  --bs-table-color: #212529;
+  margin-bottom: 0;
+}
+
+.custom-table.table-dark {
+  --bs-table-bg: #212529;
+  --bs-table-striped-bg: #2c3034;
+  --bs-table-hover-bg: #343a40;
+  --bs-table-color: #fff;
+}
+
+.table td, .table th {
+  vertical-align: middle;
+  background-color: var(--bs-table-bg);
+  color: var(--bs-table-color);
+}
+
+.table-hover tbody tr:hover {
+  background-color: var(--bs-table-hover-bg);
+  color: var(--bs-table-color);
+}
+
+/* Dark Mode Styles */
+.dark-mode {
+  --bs-body-bg: #1a1d20;
+  --bs-body-color: #fff;
+}
+
+.dark-mode .card {
+  background-color: #2b3035;
+  color: #fff;
+}
+
+.dark-mode .card-header {
+  background-color: #343a40;
+  border-bottom-color: #454d55;
+}
+
+.dark-mode .form-control,
+.dark-mode .form-select,
+.dark-mode .input-group-text {
+  background-color: #343a40;
+  border-color: #454d55;
+  color: #fff;
+}
+
+.dark-mode .form-control:focus {
+  background-color: #343a40;
+  border-color: #80bdff;
+  color: #fff;
+}
+
+.dark-mode .btn-outline-secondary {
+  color: #fff;
+  border-color: #6c757d;
+}
+
+.dark-mode .btn-outline-secondary:hover {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.dark-mode .text-muted {
+  color: #adb5bd !important;
+}
+
+.dark-mode .alert-danger {
+  background-color: #482a2a;
+  border-color: #842029;
+  color: #ea868f;
+}
+
+/* Statistics Cards Dark Mode */
+.dark-mode .statistics-card {
+  background-color: #2b3035 !important;
+}
+
+.dark-mode .statistics-card:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.4);
+}
+
+/* Table Dark Mode Overrides */
+.dark-mode .table {
+  border-color: #454d55;
+}
+
+.dark-mode .table thead th {
+  border-bottom-color: #454d55;
+}
+
+.dark-mode .table td, 
+.dark-mode .table th {
+  border-color: #454d55;
+}
+
+/* Responsive Dark Mode */
+@media (max-width: 768px) {
+  .dark-mode .table td {
+    border-color: #454d55;
+  }
+}
+
+/* Animation for mode switch */
+.card, .table, .form-control, .btn {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 } 

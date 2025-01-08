@@ -25,17 +25,6 @@ export class CustomerService {
     );
   }
 
-  searchCustomers(searchTerm: string, sortBy: string, sortDirection: string): Observable<Customer[]> {
-    let params = new HttpParams()
-      .set('searchTerm', searchTerm)
-      .set('sortBy', sortBy)
-      .set('sortDirection', sortDirection);
-
-    return this.http.get<Customer[]>(`${this.apiUrl}/search`, { params }).pipe(
-      catchError(this.handleError)
-    );
-  }
-
   getCustomer(id: number): Observable<Customer> {
     return this.http.get<Customer>(`${this.apiUrl}/${id}`).pipe(
       catchError(this.handleError)
@@ -56,6 +45,25 @@ export class CustomerService {
 
   deleteCustomer(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  searchCustomers(searchTerm?: string, sortBy?: string, sortDirection?: string): Observable<Customer[]> {
+    let params = new HttpParams();
+    
+    if (searchTerm) {
+      params = params.set('searchTerm', searchTerm);
+    }
+    if (sortBy) {
+      params = params.set('sortBy', sortBy);
+    }
+    if (sortDirection) {
+      params = params.set('sortDirection', sortDirection);
+    }
+
+    return this.http.get<Customer[]>(`${this.apiUrl}/search`, { params }).pipe(
+      tap(customers => console.log('Searched customers:', customers)),
       catchError(this.handleError)
     );
   }
