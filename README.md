@@ -2,6 +2,10 @@
 
 A modern Customer Relationship Management system built with ASP.NET Core and Angular. Features a responsive design, dark/light mode, and complete CRUD operations.
 
+## Project Video 
+Here's a preview of my project video: [![Project Video](https://img.icons8.com/ios-filled/50/000000/video-playlist.png)](https://1drv.ms/v/s!AkQRy1RWOo-7hFZWMbcth-W9vE_e?e=h1Dq6y) 
+Feel free to click the image to watch the full video!
+
 ## Tech Stack
 
 - **Backend**: ASP.NET Core 6.0
