@@ -1,0 +1,56 @@
+.card {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.card-header {
+  background-color: #f8f9fa;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.form-control:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.alert {
+  margin-bottom: 1rem;
+}
+
+.table-responsive {
+  margin-top: 1rem;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .card {
+    border: none !important;
+    box-shadow: none !important;
+  }
+  
+  .table {
+    width: 100% !important;
+  }
+}
+
+.statistics-card {
+  transition: transform 0.2s;
+}
+
+.statistics-card:hover {
+  transform: translateY(-5px);
+}
+
+.search-highlight {
+  background-color: yellow;
+} 

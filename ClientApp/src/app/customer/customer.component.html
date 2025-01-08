@@ -1,0 +1,14 @@
+<h1>Customer List</h1>
+
+<div *ngIf="loading">Loading...</div>
+<div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
+
+<div *ngIf="!loading && customers.length === 0">
+  No customers found.
+</div>
+
+<ul *ngIf="customers.length > 0">
+  <li *ngFor="let customer of customers">
+    {{customer.name}} - {{customer.email}} - {{customer.phoneNumber}}
+  </li>
+</ul>
