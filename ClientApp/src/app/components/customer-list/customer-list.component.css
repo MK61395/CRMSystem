@@ -158,11 +158,16 @@
 
 /* Table Styles */
 .custom-table {
-  --bs-table-bg: transparent;
-  --bs-table-striped-bg: rgba(0, 0, 0, 0.02);
-  --bs-table-hover-bg: rgba(0, 0, 0, 0.04);
+  --bs-table-bg: #ffffff;
+  --bs-table-striped-bg: #ffffff;
+  --bs-table-hover-bg: rgba(0, 0, 0, 0.02);
   --bs-table-color: #212529;
   margin-bottom: 0;
+  border-color: #dee2e6;
+}
+
+.custom-table tr {
+  background-color: #ffffff;
 }
 
 .custom-table.table-dark {
@@ -174,13 +179,26 @@
 
 .table td, .table th {
   vertical-align: middle;
-  background-color: var(--bs-table-bg);
+  background-color: inherit;
   color: var(--bs-table-color);
 }
 
 .table-hover tbody tr:hover {
   background-color: var(--bs-table-hover-bg);
   color: var(--bs-table-color);
+}
+
+/* Update the dark mode table styles */
+.dark-mode .custom-table {
+  --bs-table-bg: #212529;
+  --bs-table-striped-bg: #2c3034;
+  --bs-table-hover-bg: #343a40;
+  --bs-table-color: #fff;
+  border-color: #454d55;
+}
+
+.dark-mode .custom-table tr {
+  background-color: #212529;
 }
 
 /* Dark Mode Styles */
@@ -266,4 +284,45 @@
 /* Animation for mode switch */
 .card, .table, .form-control, .btn {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Light mode input styles */
+.form-control,
+.form-select,
+.input-group-text {
+  background-color: #ffffff;
+  border-color: #ced4da;
+  color: #212529;
+}
+
+.form-control:focus {
+  background-color: #ffffff;
+  border-color: #80bdff;
+  color: #212529;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.input-group-text {
+  background-color: #f8f9fa;
+}
+
+/* Dark mode input styles - keep these after the light mode styles */
+.dark-mode .form-control,
+.dark-mode .form-select,
+.dark-mode .input-group-text {
+  background-color: #343a40;
+  border-color: #454d55;
+  color: #fff;
+}
+
+.dark-mode .form-control:focus {
+  background-color: #343a40;
+  border-color: #80bdff;
+  color: #fff;
+}
+
+.dark-mode .input-group-text {
+  background-color: #2b3035;
+  color: #fff;
+  border-color: #454d55;
 } 
